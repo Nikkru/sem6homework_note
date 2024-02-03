@@ -25,5 +25,25 @@ public class NoteController {
         return noteRepository.save(note);
     }
 
+    @GetMapping("/{id}")
+    public Note getById(@PathVariable("id") Long id){
+        return noteRepository.findById(id).orElseThrow();
+    }
 
+    /**
+     *
+     * @param note редактированная запись
+     * @param id - идентификатор редактируемой записи
+     * @return отредактированная запись
+     */
+    @PutMapping("/{id}")
+    public Note editById(@RequestBody Note note, @PathVariable("id") Long id){
+        note.setId(id);
+        return noteRepository.save(note);
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteById(@PathVariable("id") Long id){
+        noteRepository.deleteById(id);
+    }
 }
